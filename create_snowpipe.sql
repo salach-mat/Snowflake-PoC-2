@@ -82,3 +82,12 @@ from table(information_schema.task_history(
     scheduled_time_range_start=>dateadd('hour',-4,current_timestamp()), -- time stamp
     result_limit => 5, -- limit of results
     task_name=>'INSERT_CONFORMED')); -- specific task
+
+-- SNOWPIPE COST --
+SELECT TO_DATE(start_time) AS date,
+  pipe_name,
+  SUM(credits_used) AS credits_used
+FROM snowflake.account_usage.pipe_usage_history
+WHERE start_time >= DATEADD(month,-1,CURRENT_TIMESTAMP()) -- 30 days back by day
+GROUP BY 1,2
+ORDER BY 3 DESC;
