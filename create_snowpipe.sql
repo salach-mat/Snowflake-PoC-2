@@ -49,7 +49,7 @@ CREATE OR REPLACE SCHEMA MANAGE_DB.PIPES;
 
 CREATE OR REPLACE PIPE MANAGE_DB.PIPES.S3_PIPE
     auto_ingest = TRUE
-    AS
+AS
     COPY INTO DATA_DB.PUBLIC.LANDING_TB (event_time, event_type, product_id, category_id, category_code, brand, price, user_id, user_session)
     FROM @MANAGE_DB.EXTERNAL_STAGES.AWS_STAGE;
 
